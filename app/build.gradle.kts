@@ -1,21 +1,26 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.google.android.libraries.mapsplatform.secrets.gradle.plugin)
+    // HAPUS baris ini bila pakai Opsi 1:
+    // alias(libs.plugins.google.android.libraries.mapsplatform.secrets.gradle.plugin)
 }
 
 android {
     namespace = "com.example.lab_week_07"
-    compileSdk = 36
+    compileSdk = 34
+
+    // Kotlin DSL pakai val, bukan `def`
+    val MAPS_API_KEY: String = project.findProperty("MAPS_API_KEY") as? String ?: ""
 
     defaultConfig {
         applicationId = "com.example.lab_week_07"
         minSdk = 24
-        targetSdk = 36
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        // Kotlin DSL: gunakan mapOf atau operator +=
+        manifestPlaceholders += mapOf("MAPS_API_KEY" to MAPS_API_KEY)
     }
 
     buildTypes {
@@ -31,16 +36,11 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-    kotlinOptions {
-        jvmTarget = "11"
-    }
-    buildFeatures {
-        viewBinding = true
-    }
+    kotlinOptions { jvmTarget = "11" }
+    buildFeatures { viewBinding = true }
 }
 
 dependencies {
-
     implementation("androidx.core:core-ktx:1.13.1")
     implementation("androidx.appcompat:appcompat:1.7.0")
     implementation("com.google.android.material:material:1.12.0")
@@ -48,6 +48,5 @@ dependencies {
     implementation("androidx.activity:activity-ktx:1.9.2")
     implementation("androidx.fragment:fragment-ktx:1.8.3")
     implementation("com.google.android.gms:play-services-maps:18.2.0")
-// NEW: layanan lokasi (Fused Location Provider)
     implementation("com.google.android.gms:play-services-location:21.3.0")
 }

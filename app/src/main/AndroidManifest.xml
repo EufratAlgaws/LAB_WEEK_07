@@ -13,10 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Material3.DayNight.NoActionBar">
 
-        <!-- Tambahkan API Key langsung (nanti akan diamankan di Commit #3) -->
+        <!-- Ambil API Key aman dari manifestPlaceholders -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAIflt4g94Du_jsCeDkx3P7eqJLYJz15BE"/>
+            android:value="${MAPS_API_KEY}"/>
 
         <activity
             android:name=".MapsActivity"
